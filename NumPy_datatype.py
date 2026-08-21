@@ -13,7 +13,7 @@ Below is a list of all data types in NumPy and the characters used to represent 
     M - datetime
     O - object
     S - string
-    U - unicode string
+    U - Unicode string
     V - fixed chunk of memory for other type ( void )
 
 
@@ -34,9 +34,9 @@ print(arr3.dtype)
 
 # For i, u, f, S and U we can define size as well.
 # Create an array with data type 4 bytes integer
-arr4 = np.array([1, 2, 3, 4], dtype="i4") # unspecified size will rise an value error
+arr4 = np.array([1, 2, 3, 4], dtype="i4") # unspecified size will rise a value error
 print(arr4.dtype)
-# A non integer string like 'a' can not be converted to integer (will raise an error):
+# A non-integer string like 'a' can not be converted to integer (will raise an error):
 # arr_fa_tsy_mety = np.array(['a', '2', '3'], dtype="i4") # ValueError: invalid literal for int() with base 10: 'a'
 
 ## converting data type on existing array using astype() method
