@@ -64,8 +64,8 @@ slope, intercept, r, p, std_err = stats.linregress(age, speed)
 def myfunc(x):
   return slope * x + intercept
 
-mymodel = list(map(myfunc, age))
+my_model = list(map(myfunc, age))
 
 plt.scatter(age, speed)
-plt.plot(age, mymodel)
+plt.plot(age, my_model)
 plt.show()
