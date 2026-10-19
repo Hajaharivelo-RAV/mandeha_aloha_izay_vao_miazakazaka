@@ -6,8 +6,8 @@ from scipy import stats
 set_of_data =  [86, 87, 88, 86, 87, 85, 86, 87, 88, 86, 87, 85]
 sod = [77, 32, 111, 99, 56, 86, 90, 178, 45, 67, 89, 23]
 # mean function mean() from numpy output the average value of the set of data
-avg = np.mean(set_of_data)
-print(avg)
+variable_1 = np.mean(set_of_data)
+print(variable_1)
 # mean function median() from numpy output the middle value of the set of data
 mine = np.median(set_of_data)
 print(mine)
@@ -60,15 +60,46 @@ age = [5,7,8,7,2,17,2,9,4,11,12,9,6]
 speed = [99,86,87,88,111,86,103,87,94,78,77,85,86]
 
 # draw the line of Linear Regression with scipy stats and linregress:
+# Execute a method that returns some important key values of Linear Regression:
 slope, intercept, r, p, std_err = stats.linregress(age, speed)
+# Create a function that uses the slope and intercept values to return a new value. This new value represents where on the y-axis the corresponding x value will be placed:
 def myfunc(x):
   return slope * x + intercept
 
+# Run each value of the x array through the function. This will result in a new array with new values for the y-axis:
 my_model = list(map(myfunc, age))
-
+# Draw the original scatter plot
 plt.scatter(age, speed)
+# Draw the regression line
 plt.plot(age, my_model)
 plt.show()
+
+## R and the linear regression
+# How does my data related, well if r or the coefficient of correlation is between -1 to 1 where near both of these values a strong correlation and close to zero no relation at all
+print(r)
+
+## Predict future values
+# with these data we created a model that we can use to predict a value corresponding to an input that we give to the model
+# let's predict the speed of a car 10 years old of age
+my_model10 = myfunc(10)
+print(my_model10)
+
+## Bad Fit?
+#Let us create an example where linear regression would not be the best method to predict future values.
+#These values for the x- and y-axis should result in a very bad fit for linear regression:
+age_bf = [89,43,36,36,95,10,66,34,38,20,26,29,48,64,6,5,36,66,72,40]
+speed_bf = [21,46,3,35,67,95,53,72,58,10,26,34,90,33,38,20,56,2,47,15]
+slope_bf, intercept_bf, r_bf, p_bf, std_err_bf = stats.linregress(age_bf, speed_bf)
+
+def myfunc(x):
+  return slope_bf * x + intercept_bf
+
+mymodel = list(map(myfunc, age_bf))
+plt.scatter(age_bf, speed_bf)
+plt.plot(age_bf, mymodel)
+plt.show()
+# r near 0
+print(r_bf)
 
 ## Polynomial regression
 # use of np.polyld() for polynomial regression
