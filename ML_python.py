@@ -145,4 +145,4 @@ if bf_R2 <= 0.01:
   print("r2_score :" + str(bf_R2) + "too low, there is no relationship")
 elif bf_R2 > 0.9:
   print("r2_score :" + str(bf_R2) + " strong relationship")
-
+#
