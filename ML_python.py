@@ -100,3 +100,48 @@ plt.plot(age_bf, mymodel)
 plt.show()
 # r near 0
 print(r_bf)
+
+## Polynomial regression
+# use of np.polyld() for polynomial regression
+# Create the arrays that represent the values of the x (hours )and y (speed) axis:
+hours = [1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21,22]
+speed_sp = [100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99,100]
+# NumPy has a method that lets us make a polynomial model:
+this_model = np.poly1d(np.polyfit(hours, speed_sp, 3))
+# Then specify how the line will display, we start at position 1, and end at position 22:
+the_line = np.linspace(1, 22, 100)
+# draw the original plot, the line of polynomial regression and show the plot
+plt.scatter(hours, speed_sp)
+plt.plot(the_line, this_model(the_line))
+plt.show()
+
+## R-squared
+# R2 is the metrics (range between 0 and 1) use to assess the relationship between x and y in the polynomial regression
+# 0 there is no relationship at all (unusable for prediction) and 1 100% relationship (will predict)
+# import the module for the assessment from scikit-learn
+from sklearn.metrics import r2_score
+# print the r2_score for the model
+R2 = r2_score(speed_sp, this_model(hours))
+if R2 < 0.05:
+  print("r2_score :" + str(R2) + "too low there is no relationship")
+else:
+  print("r2_score :" + str(R2) + " strong relationship")
+
+## Predicting future value
+speed_sp17 = this_model(17)
+print(speed_sp17)
+
+## Bad fit
+# lets consider an array that doesn't have any relation
+poly_bf_hours = [89,43,36,36,95,10,66,34,38,20,26,29,48,64,6,5,36,66,72,40]
+poly_bf_speed = [21,46,3,35,67,95,53,72,58,10,26,34,90,33,38,20,56,2,47,15]
+poly_bf_model = np.poly1d(np.polyfit(poly_bf_hours, poly_bf_speed, 3))
+poly_bf_line = np.linspace(2, 95, 100)
+plt.scatter(poly_bf_hours, poly_bf_speed)
+plt.plot(poly_bf_line, poly_bf_model(poly_bf_line))
+plt.show()
+bf_R2 = r2_score(poly_bf_speed, poly_bf_model(poly_bf_hours))
+if bf_R2 <= 0.01:
+  print("r2_score :" + str(bf_R2) + "too low, there is no relationship")
+elif bf_R2 > 0.9:
+  print("r2_score :" + str(bf_R2) + " strong relationship")
