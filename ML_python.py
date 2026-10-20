@@ -142,6 +142,6 @@ plt.plot(poly_bf_line, poly_bf_model(poly_bf_line))
 plt.show()
 bf_R2 = r2_score(poly_bf_speed, poly_bf_model(poly_bf_hours))
 if bf_R2 <= 0.01:
-  print("r2_score :" + str(bf_R2) + "too low, there is no relationship")
+  print(f"r2_score : {bf_R2} too low, there is no relationship")
 elif bf_R2 > 0.9:
-  print("r2_score :" + str(bf_R2) + " strong relationship")
+  print(f"r2_score : {bf_R2} strong relationship")
