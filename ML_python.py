@@ -142,7 +142,36 @@ plt.plot(poly_bf_line, poly_bf_model(poly_bf_line))
 plt.show()
 bf_R2 = r2_score(poly_bf_speed, poly_bf_model(poly_bf_hours))
 if bf_R2 <= 0.01:
-  print("r2_score :" + str(bf_R2) + "too low, there is no relationship")
+  print(f"r2_score : {bf_R2} too low, there is no relationship")
 elif bf_R2 > 0.9:
-  print("r2_score :" + str(bf_R2) + " strong relationship")
-#
+  print(f"r2_score : {bf_R2} strong relationship") 
+
+## Multiple regression
+# Multiple regression is a statistical technique that uses several explanatory variables to predict the outcome of a response
+# let's import all modules we need for multiple regression
+import pandas as pd
+from sklearn import linear_model
+# lets create a data frame with the data we will use for multiple regression
+df = pd.read_csv("cars.csv")
+# create an independent variable (X) and a dependent variable (y)
+X = df[["Weight", "Volume"]]
+y = df["CO2"]
+# create a linear regression model and fit it to the data
+reg = linear_model.LinearRegression()
+reg.fit(X, y)
+#predict the CO2 emission of a car where the weight is 2300kg, and the volume is 1300cm3:
+predictedCO2 = reg.predict([[2300, 1300]])
+print(predictedCO2)
+# coefficients of weight and volume against CO2 emission, the higher the coefficient the more impact on CO2 emission
+print(reg.coef_)
+#predict the CO2 emission of a car where the weight is 3300kg, and the volume is 1300cm3 to confirm the coefficients of weight and volume against CO2 emission, the higher the coefficient the more impact on CO2 emission:
+predictedCO2_conf = reg.predict([[3300, 1300]])
+print(predictedCO2_conf)
+"""
+ We have predicted that a car with 1.3 liter engine, and a weight of 3300 kg, will release approximately 115 grams of CO2 for every kilometer it drives.
+
+Which shows that the coefficient of 0.00755095 is correct:
+
+107.2087328 + (1000 * 0.00755095) = 114.75968
+
+"""
