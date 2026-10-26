@@ -38,21 +38,21 @@ plt.show()
 #A typical normal data distribution:
 ndis = np.random.normal(5.0, 1.0, 100000)
 plt.hist(ndis, 100)
-plt.show()
+#plt.show()
 
 ## SCATTER PLOT
 # Use the scatter() method to draw a scatter plot diagram:
 a = [5,7,8,7,2,17,2,9,4,11,12,9,6]
 b = [99,86,87,88,111,86,103,87,94,78,77,85,86]
 plt.scatter(a, b)
-plt.show()
+#plt.show()
 
 ## RANDOM DATA DISTRIBUTION
 # A scatter plot with 1000 dots:
 A = np.random.normal(5.0, 1.0, 1000)
 B = np.random.normal(10.0, 2.0, 1000)
 plt.scatter(A, B)
-plt.show()
+#plt.show()
 
 ## LINEAR REGRESSION
 # Start by drawing a scatter plot:
@@ -72,7 +72,7 @@ my_model = list(map(myfunc, age))
 plt.scatter(age, speed)
 # Draw the regression line
 plt.plot(age, my_model)
-plt.show()
+#plt.show()
 
 ## R and the linear regression
 # How does my data related, well if r or the coefficient of correlation is between -1 to 1 where near both of these values a strong correlation and close to zero no relation at all
@@ -97,7 +97,7 @@ def myfunc(x):
 mymodel = list(map(myfunc, age_bf))
 plt.scatter(age_bf, speed_bf)
 plt.plot(age_bf, mymodel)
-plt.show()
+#plt.show()
 # r near 0
 print(r_bf)
 
@@ -113,7 +113,7 @@ the_line = np.linspace(1, 22, 100)
 # draw the original plot, the line of polynomial regression and show the plot
 plt.scatter(hours, speed_sp)
 plt.plot(the_line, this_model(the_line))
-plt.show()
+#plt.show()
 
 ## R-squared
 # R2 is the metrics (range between 0 and 1) use to assess the relationship between x and y in the polynomial regression
@@ -139,7 +139,7 @@ poly_bf_model = np.poly1d(np.polyfit(poly_bf_hours, poly_bf_speed, 3))
 poly_bf_line = np.linspace(2, 95, 100)
 plt.scatter(poly_bf_hours, poly_bf_speed)
 plt.plot(poly_bf_line, poly_bf_model(poly_bf_line))
-plt.show()
+#plt.show()
 bf_R2 = r2_score(poly_bf_speed, poly_bf_model(poly_bf_hours))
 if bf_R2 <= 0.01:
   print(f"r2_score : {bf_R2} too low, there is no relationship")
@@ -175,3 +175,20 @@ Which shows that the coefficient of 0.00755095 is correct:
 107.2087328 + (1000 * 0.00755095) = 114.75968
 
 """
+## The scaler
+# lets build a foundation of a scaler
+# as this is the formula for it
+"""
+z = (x - u) / s
+z is the new value, x is the original value, u is the mean of the population, and s is the standard deviation of the population.
+"""
+# lets do a simple example of a scaler
+def scaler(x):
+  u = np.mean(x)
+  s = np.std(x)
+  z = (x - u) / s
+  return z
+
+S = list(scaler(X))
+
+print(S)
