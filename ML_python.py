@@ -160,12 +160,12 @@ y = df["CO2"]
 reg = linear_model.LinearRegression()
 reg.fit(X, y)
 #predict the CO2 emission of a car where the weight is 2300kg, and the volume is 1300cm3:
-predictedCO2 = reg.predict([[2300, 1300]])
+predictedCO2 = reg.predict(pd.DataFrame([[2300, 1300]], columns=["Weight", "Volume"]))
 print(predictedCO2)
 # coefficients of weight and volume against CO2 emission, the higher the coefficient the more impact on CO2 emission
 print(reg.coef_)
 #predict the CO2 emission of a car where the weight is 3300kg, and the volume is 1300cm3 to confirm the coefficients of weight and volume against CO2 emission, the higher the coefficient the more impact on CO2 emission:
-predictedCO2_conf = reg.predict([[3300, 1300]])
+predictedCO2_conf = reg.predict(pd.DataFrame([[3300, 1300]], columns=["Weight", "Volume"]))
 print(predictedCO2_conf)
 """
  We have predicted that a car with 1.3 liter engine, and a weight of 3300 kg, will release approximately 115 grams of CO2 for every kilometer it drives.
