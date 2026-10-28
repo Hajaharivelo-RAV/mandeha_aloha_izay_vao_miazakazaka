@@ -32,7 +32,7 @@ matplotlib.use('TkAgg')  # Must be called BEFORE importing pyplot
 import matplotlib.pyplot as plt
 dis = np.random.uniform(0.0, 5.0, 100000)
 plt.hist(dis, 100)
-plt.show()
+#plt.show()
 
 ## DATA NORMAL DISTRIBUTION
 #A typical normal data distribution:
@@ -160,7 +160,7 @@ y = df["CO2"]
 reg = linear_model.LinearRegression()
 reg.fit(X, y)
 #predict the CO2 emission of a car where the weight is 2300kg, and the volume is 1300cm3:
-predictedCO2 = reg.predict(pd.DataFrame([[2300, 1300]], columns=["Weight", "Volume"]))
+predictedCO2 = reg.predict(pd.DataFrame([[2300, 1300]], columns=["Weight", "Volume"])) # asign the predicted value to a featured name in each column of the data frame. no warning message
 print(predictedCO2)
 # coefficients of weight and volume against CO2 emission, the higher the coefficient the more impact on CO2 emission
 print(reg.coef_)
@@ -189,6 +189,23 @@ def scaler(x):
   z = (x - u) / s
   return z
 
-S = list(scaler(X))
-
+w_scaled =  list(scaler(df["Weight"]))
+v_scaled = list(scaler(df["Volume"]))
+S = np.vstack((w_scaled, v_scaled)).T # asina an'ty T ty le izy vo manaraka ny shape an'ny array
+# raha T hahita ny shape an'ny array dia mila manaraka ny T (transpose) mba ho lasa array 2D
 print(S)
+
+# We can also not going through that burden and leave it to the scikit learn module
+from sklearn.preprocessing import StandardScaler
+s_scaler = StandardScaler()
+scaledX = s_scaler.fit_transform(X)  
+print(scaledX) 
+
+# Now we can use the scaled data to fit the model and predict the CO2 emission of a car where the weight is 2300kg, and the volume is 1300cm3:
+regr = linear_model.LinearRegression()
+regr.fit(pd.DataFrame(scaledX, columns=["Weight", "Volume"]), y)
+scaled = s_scaler.transform(pd.DataFrame([[2300, 1300]], columns=["Weight", "Volume"]))
+
+predictedCO2_scaled = regr.predict(pd.DataFrame([scaled[0]], columns=["Weight", "Volume"]))
+#predictedCO2_scaled = regr.predict(scaled) # ty misy warning fa aleo tsy ampiasaina
+print(predictedCO2_scaled)

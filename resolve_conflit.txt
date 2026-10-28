@@ -1,0 +1,1 @@
+/home/mimihr/Desktop/PyMi/mandeha_aloha_izay_vao_miazakazaka/.venv/bin/python -m calendar
